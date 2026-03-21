@@ -36,10 +36,10 @@ Provided python files are:
 
 Data coming from experimental data and for Redlich-Kister potential are in the following csv files:
 
--   'critcondbinarysystem.csv'
--   'dbexcesspotential.csv'
--   'dboxides.csv'
--   'monotecticbinarysystem.csv'
+-   'critcondbinarysystem.csv': file gathering the critical conditions from experimental result for eleven binary silicate systems.
+-   'dbexcesspotential.csv': file gathering the coefficients of the Redlich-Kister potential at the first order coming from literature or determined for this contribution. 
+-   'dboxides.csv': file gathering the useful properties of oxides (density, fusion temperature and enthalpy).
+-   'monotecticbinarysystem.csv': file gathering monotectic conditions of bynary silicate systems. 
 
 Experimental data described the binodal bounds for all systems are gathered in the directory 'BinodalData'. Molar fractions as a function of the temperature are given in files 'xvsT-Systemname.csv' for which 'Systemname' correspond to the name of system studied in this repository. Eleven systems are provided for this work.
 
