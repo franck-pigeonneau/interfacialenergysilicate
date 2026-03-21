@@ -1,0 +1,12 @@
+System,Nature,A00,A01,A10,A11,Ref
+La2O3-SiO2,monotectic,-2.73671557e5,-4.1830258e1,2.43104889e5,-1.85821064e1,'Toropov & Bondar (1961)'
+Sm2O3-SiO2,monotectic,-5.92971924e+05,1.72657591e+02,3.43289435e+05,-9.21485278e+01,'Toropov & Bondar (1961)'
+Dy2O3-SiO2,monotectic,-8.31383557e+05,1.06406738e+02,4.58523023e+05,-6.93784907e+01,'Toropov et al. (1961)'
+Er2O3-SiO2,monotectic,-1.36588369e+06,4.45623698e+02,6.94742696e+05,-2.15724524e+02,'Toropov et al. (1961)'
+MgO-SiO2,monotectic,-3.276092e5,1.21e2,3.590678e5,-1.328e2,'Hageman & Oonk (1986)'
+CaO-SiO2,monotectic,1.246489e5,-1.826e2,2.615128e5,-4.98e1,'Hageman et al. (1986)'
+SrO-SiO2,monotectic,1.5375451e6,-1.0362e3,-3.746787e5,3.256e2,'Hageman & Oonk (1986)'
+Na2O-SiO2,subliquidus,1.860575e5,-3.654e2,-4.37207e4,1.401e2,'Haller et al. (1974)'
+Li2O-SiO2,subliquidus,8.94849e4,-1.566e2,-1.87356e4,6.99e1,'Haller et al. (1974)'
+K2O-SiO2,subliquidus,-2.041173e5,-2.831e2,1.21095e5,8.2e1,'Haller et al. (1974)'
+BaO-SiO2,subliquidus,-1272515.94526569,6.16170470e+02,665257.26750172,-3.15411075e+02,'Haller et al. (1974)'
