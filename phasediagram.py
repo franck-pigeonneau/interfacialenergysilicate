@@ -6,6 +6,9 @@ Created on Sat March 14 2026
 This program determines the miscibility gap in binary silicate glasses. The
 chemical potentials of solute and solvant are defined according to Kim et al. [1].
 
+Experimental data are used to compare with the numerical results. All methods are
+gathered in the class BinarySystem.
+
 References:
 
 [1] S. S. Kim, J. Y. Park & T. H. Sanders Jr (2001) J. Alloys Compd., 321:84-90. 
