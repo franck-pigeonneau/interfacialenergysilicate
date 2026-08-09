@@ -1,18 +1,17 @@
-## Table of contents
+# Table of contents
 
 1. [Description of the repository]
 2. [Requirements]
 3. [Repository constitution]
 4. [References]
 
-# Description of the repository
+## Description of the repository
 
 This repository is devoted to the determination of interfacial energy in binary silicate and borate systems with a miscibility gap. Excess potentials are determined according to the Redlich and Kister model up to the fourth order [1]. The interfacial energy is determined from the model developed by Kaptay [2].
 
 The computations are based on the thermodynamic data describing the thermodynamic equilibrium of the separeted phases. The Gibbs free energy is determined using the excess potential of Redlich-Kister potential [3]. Fourteen systems are considered for which coefficients of the Redlich-Kister potential are gathered in a file, dbexcesspotential.csv. The experimental data of the critical and monotectic conditions are in critcondbinarysystem.csv and monotecticbinarysystem.csv files.
 
 The details of the development of the models can be found in the reference [4].
-
 
 ## Requirements
 
