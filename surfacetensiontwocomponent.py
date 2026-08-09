@@ -3,16 +3,15 @@
 """
 Created on Tue Jul  4 09:18:15 2023
 
-This program determines the surface tension between two immiscible oxide liquids.
-The method is based on the development of Kaptay [1]. The chemical potentials of
-solute and solvant are defined according to Kim et al. [2].
+This program determines the interfacial energy between two immiscible oxide liquids.
+The method is based on the development of [1].
 
 References:
 
-[1] G. Kaptay (2012) Acta Mater., 60:6804-6813.
-[2] S. S. Kim, J. Y. Park & T. H. Sanders Jr (2001) J. Alloys Compd., 321:84-90. 
+[1] F. Pigeonneau & W. Blanc (2026). Interfacial energy in phase separated borate 
+and silicate systems J. Am. Ceram. Soc., 10.1111/JACE.71109.
 
-@author: fpigeonneau
+@author: Franck Pigeonneau
 """
 
 import numpy as np
@@ -22,10 +21,18 @@ from scipy import optimize
 import pandas as pd
 from binarysystem import BinarySystem
 
-def fgamma(TsTc,gamma0,n):
-    return gamma0*(1.-TsTc)**n
+def fgamma(x,A,n):
+    return A*(1.-x)**n
 #end fgamma
-    
+
+def fgamma2(x,A):
+    return A+4*x
+#end fgamma2
+
+def fgamma3(x,A):
+    return A+1.5*x
+#end fgamma2
+
 def fgammavsdx(x,A,n):
     return A*x**n
 #end fgammavsdx
@@ -35,10 +42,12 @@ def fgammavsdx(x,A,n):
 # ---------------------------------
 
 solvant='SiO2'
-solute='Na2O'
+solute='La2O3'
 EXPE=True
 savefig=True
-thermobinary=BinarySystem(solvant,solute)
+OrderRK=4
+NTRK=3
+thermobinary=BinarySystem(solvant,solute,OrderRK,NTRK)
 
 # ----------------------
 # 2. Critical conditions
@@ -67,8 +76,12 @@ else:
     # Here, monotectic conditions do not exist, we determine the limit of the binodale for
     # a temperature below to the critical condition. Nevertheless these values are stored
     # in the same variables that in the previous situation.
-    thermobinary.Tmono=thermobinary.Tc-300
-    x0=np.array([0.01,0.3])
+    data=pd.read_csv('BinodalData/'+thermobinary.system+'.csv',index_col=0)
+    Texpe=data['T'].values
+    x1expe=data['x1'].values
+    x2expe=data['x2'].values
+    thermobinary.Tmono=data['T'].values[0]
+    x0=np.array([data['x1'].values[0],data['x2'].values[0]])
     thermobinary.x1mono,thermobinary.x2mono=thermobinary.binodale(x0,thermobinary.Tmono)
     print('x1mono=',thermobinary.x1mono,' x2mono=',thermobinary.x2mono,' Tmono=',thermobinary.Tmono-zero_Celsius,'°C')
 #end if
@@ -77,7 +90,7 @@ else:
 # 4. Determination of the surface tension
 # ---------------------------------------
 
-NT=500
+NT=701
 Nc=500
 T=np.linspace(thermobinary.Tmono,thermobinary.Tc,NT)
 x1=np.zeros(NT)
@@ -105,8 +118,10 @@ for i in range(1,NT-1):
     
     # Determination of the surface tension
     xi[i],gamma[i]=thermobinary.surfacetension(x1[i],x2[i],T[i])
+    
 #end for
 xi[NT-1],gamma[NT-1]=thermobinary.surfacetension(x1[NT-1],x2[NT-1],T[NT-1])
+
 
 # ---------------------------
 # 5. Graphical representation
@@ -115,22 +130,29 @@ xi[NT-1],gamma[NT-1]=thermobinary.surfacetension(x1[NT-1],x2[NT-1],T[NT-1])
 # Fitting of the surface tension
 # ------------------------------
 
+#x=1.-T/thermobinary.Tc
+#x=x[:-1]
+#lngamma=gamma
+#lngamma=np.log(lngamma[:-1])
+
 popt,pcov=optimize.curve_fit(fgamma,T/thermobinary.Tc,gamma)
 print('popt=',popt)
+
 dgamma=pd.DataFrame(np.array([popt]),columns=['A','n'])
 dgamma.to_csv('gamma'+thermobinary.system+'.csv')
 
 plt.figure()
-plt.plot(T,gamma,'k',label='Kaptay (2012)')
-plt.plot(T,fgamma(T/thermobinary.Tc,*popt),'bo',markevery=20,markersize=5,label=r'$\gamma='+\
-         str(np.round(popt[0],3))+'(1-T/T_c)^{'+str(np.round(popt[1],3))+'}$')
-plt.xlabel(r'$T$ (K)',fontsize=14)
-plt.ylabel(r'$\gamma$ (N/m)',fontsize=14)
+plt.plot(T[:-1]/thermobinary.Tc,gamma[:-1],'k',label='Present model',linewidth=2)
+plt.plot(T[:-1]/thermobinary.Tc,popt[0]*(1.-T[:-1]/thermobinary.Tc)**popt[1],'b--',\
+         label=r'$\gamma='+str(np.round(popt[0],3))+'(1-T/T_c)^{'+str(np.round(popt[1],3))+'}$',linewidth=2)
+
+plt.xlabel(r'$\theta$',fontsize=14)
+plt.ylabel(r'$\gamma$',fontsize=14)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 plt.legend(loc=0,fontsize=12)
 if (savefig):
-    plt.savefig('gamma'+thermobinary.system+'vsT.pdf',dpi=300,bbox_inches='tight')
+    plt.savefig('gamma'+thermobinary.system+'vsTsTc.pdf',dpi=300,bbox_inches='tight')
 #endif
 
 # Saving of the results
@@ -140,4 +162,3 @@ A=np.transpose(np.array([T,x1,x2,x1spi,x2spi,xi,gamma]))
 data=pd.DataFrame(A,columns=np.array(['T','x1','x2','x1spi','x2spi','xi','gamma']))
 data.to_csv('Results/'+thermobinary.system+'.csv')
 
-plt.show()
