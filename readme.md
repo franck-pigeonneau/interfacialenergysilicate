@@ -7,11 +7,11 @@
 
 ## Description of the repository
 
-This repository is devoted to the determination of interfacial energy in binary silicate and borate systems with a miscibility gap. Excess potentials are determined according to the Redlich and Kister model up to the fourth order [1]. The interfacial energy is determined from the model developed by Kaptay [2].
+This repository is devoted to the determination of interfacial energy in binary silicate and borate systems with a miscibility gap. Excess potentials are determined according to the Redlich and Kister model up to the fourth order [1]. The interfacial energy is determined from the model developed by Kaptay [2,3].
 
 The computations are based on the thermodynamic data describing the thermodynamic equilibrium of the separeted phases. The Gibbs free energy is determined using the excess potential of Redlich-Kister potential [3]. Fourteen systems are considered for which coefficients of the Redlich-Kister potential are gathered in a file, dbexcesspotential.csv. The experimental data of the critical and monotectic conditions are in critcondbinarysystem.csv and monotecticbinarysystem.csv files.
 
-The details of the development of the models can be found in the reference [4].
+The details of the development of the models can be found in the reference [3].
 
 ## Requirements
 
@@ -46,6 +46,4 @@ Experimental data described the binodal bounds for all systems are gathered in t
 
 [2] G. Kaptay (2012). "On the interfacial energy of coherent interfaces". Acta Mater., 60:6804-6813.
 
-[3] J. W. Cahn & J. E. Hilliard (1958). "Free Energy of a Nonuniform System". I. Interfacial Free Energy. J. Chem. Phys., 28:258-267.
-
-[4] F. Pigeonneau and W. Blanc (2026). "Interfacial energy in phase separated borate and silicate systems". J. Am. Ceram. Soc., 10.1111/JACE.71109.
+[3] F. Pigeonneau and W. Blanc (2026). "Interfacial energy in phase separated borate and silicate systems". J. Am. Ceram. Soc., 10.1111/JACE.71109.
